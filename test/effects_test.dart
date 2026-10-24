@@ -48,6 +48,23 @@ void main() {
       throwsFormatException,
     );
   });
+  test(
+    'EXIF rotation is baked into pixels and source metadata is stripped',
+    () {
+      final source = img.Image(width: 40, height: 20);
+      source.exif.imageIfd.orientation = 6;
+      source.exif.imageIfd.make = 'Private camera metadata';
+      final input = Uint8List.fromList(img.encodeJpg(source));
+      expect(img.decodeJpg(input)!.exif.imageIfd.make, isNotNull);
+      final output = img.decodeJpg(
+        renderPhoto((input, PhotoEffect.original, false)),
+      )!;
+      expect(output.width, 20);
+      expect(output.height, 40);
+      expect(output.exif.imageIfd.make, isNull);
+      expect(output.exif.imageIfd.orientation, isNull);
+    },
+  );
   test('Every preview color matrix has the expected 20 entries', () {
     for (final effect in PhotoEffect.values) {
       expect(effect.matrix.length, 20);

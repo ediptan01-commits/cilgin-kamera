@@ -103,6 +103,8 @@ Uint8List renderPhoto((Uint8List, PhotoEffect, bool) request) {
   final decoded = img.decodeImage(bytes);
   if (decoded == null) throw const FormatException('Fotoğraf okunamadı.');
   var photo = img.bakeOrientation(decoded);
+  // JPEG encoding otherwise preserves EXIF, including possible location tags.
+  photo.exif = img.ExifData();
   // Bound memory and processing time on budget Android phones.
   if (photo.width > 2048 || photo.height > 2048) {
     photo = img.copyResize(
