@@ -1,0 +1,22 @@
+name: cilgin_kamera
+description: Eğlenceli filtrelerle fotoğraf çek, kaydet ve paylaş.
+publish_to: none
+version: 1.0.0+1
+environment:
+  sdk: '>=3.9.0 <4.0.0'
+dependencies:
+  flutter:
+    sdk: flutter
+  camera: 0.11.2
+  image: 4.5.4
+  gal: 2.3.2
+  share_plus: 11.1.0
+  cross_file: ^0.3.4+2
+  path_provider: ^2.1.5
+  permission_handler: ^12.0.1
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+flutter:
+  uses-material-design: true
